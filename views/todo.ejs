@@ -12,7 +12,12 @@
         <% todos.forEach((todo, index) => { %>
             <li>
                 <%= todo.task %>
-                <a href="/todos/delete/<%= index %>">Delete</a>
+                <form action="/todos/delete/<%= index %>" method="POST" style="display:inline;">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit">
+                        Delete
+                    </button>
+                </form>
                 <a href="/todos/edit/<%= index %>">Edit</a>
             </li>
         <% }) %>

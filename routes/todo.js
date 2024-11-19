@@ -16,7 +16,7 @@ router.post('/add', (req, res) => {
     res.redirect('/todos');
 });
 
-router.get('/delete/:index', (req, res) => {
+router.delete('/delete/:index', (req, res) => {
     const { index } = req.params;
     if (index >= 0 && index < lists.length) {
         lists.splice(index, 1);
