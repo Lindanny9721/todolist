@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+        <p>Welcome, <%= user %>!</p>
+    <ul>
+        <% todos.forEach((todo, index) => { %>
+            <li>
+                <%= todo.task %>
+                <a href="/todos/delete/<%= index %>">Delete</a>
+                <a href="/todos/edit/<%= index %>">Edit</a>
+            </li>
+        <% }) %>
+    </ul>
+
+    <form action="/todos/add" method="POST">
+        <input type="text" name="task" placeholder="New task" required>
+        <button type="submit">Add Task</button>
+    </form>
+    <form action="/auth/logout" method="GET">
+        <button type="submit">Logout</button>
+    </form>
+
+</body>
+</html>
