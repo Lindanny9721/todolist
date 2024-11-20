@@ -5,13 +5,18 @@ const lists = require('../data/todo');
 router.get('/', (req, res) => {
     const todos = lists;
     const user = req.session.user;
-    res.render('todo', { todos, user });  
+    const priority = req.query.priority;
+    let filter = todos;
+    if (priority) {
+        filter = todos.filter(todo => todo.priority === priority);
+    }
+    res.render('todo', { todos: filter, priority, user }); 
 });
 
 router.post('/add', (req, res) => {
-    const { task } = req.body;
+    const { task, priority } = req.body;    
     if (task) {
-        lists.push({ task, completed: false });
+        lists.push({id: lists.length, task, completed: false, priority });
     }
     res.redirect('/todos');
 });
@@ -36,10 +41,13 @@ router
     })
     .post((req, res) => {
         const { index } = req.params;
-        const { task } = req.body;
+        const { task, priority } = req.body;
         if (index >= 0 && index < lists.length) {
             if (task) {
                 lists[index].task = task;
+            }
+            if (priority) {
+                lists[index].priority = priority;
             }
         }
     res.redirect('/todos');

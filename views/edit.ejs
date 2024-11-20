@@ -10,6 +10,11 @@
 
     <form action="/todos/edit/<%= index %>" method="POST">
         <input type="text" name="task" value="<%= todo.task %>" required>
+        <select name="priority">
+            <option value="High" <% if (todo.priority === 'High') { %> selected <% } %>>High</option>
+            <option value="Medium" <% if (todo.priority === 'Medium') { %> selected <% } %>>Medium</option>
+            <option value="Low" <% if (todo.priority === 'Low') { %> selected <% } %>>Low</option>
+        </select>
         <button type="submit">Update Todo</button>
     </form>
 

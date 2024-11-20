@@ -8,10 +8,21 @@
 <body>
     <h1>Todo List</h1>
         <p>Welcome, <%= user %>!</p>
+        <form action="/todos" method="GET">
+            <label for="priority">Filter by Priority:</label>
+            <select name="priority" id="priority">
+                <option value="">All</option>
+                <option value="High" <% if (priority === 'High') { %> selected <% } %>>High</option>
+                <option value="Medium" <% if (priority === 'Medium') { %> selected <% } %>>Medium</option>
+                <option value="Low" <% if (priority === 'Low') { %> selected <% } %>>Low</option>
+            </select>
+            <button type="submit">Filter</button>
+        </form>
     <ul>
         <% todos.forEach((todo, index) => { %>
             <li>
                 <%= todo.task %>
+                <strong>Priority:</strong> <%= todo.priority %>
                 <form action="/todos/delete/<%= index %>" method="POST" style="display:inline;">
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit">
@@ -25,6 +36,11 @@
 
     <form action="/todos/add" method="POST">
         <input type="text" name="task" placeholder="New task" required>
+        <select name="priority">
+            <option value="High">High</option>
+            <option value="Medium" >Medium</option>
+            <option value="Low">Low</option>
+        </select>
         <button type="submit">Add Task</button>
     </form>
     <form action="/auth/logout" method="GET">
